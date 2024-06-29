@@ -16,10 +16,7 @@ body {
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
+    margin-bottom: 20px; /* Separación del header */
 }
 
 .header h1 {
@@ -27,12 +24,13 @@ body {
     margin: 0;
 }
 
-.header .life {
-    font-size: 18px;
-}
-
 .game {
     margin-top: 20px;
+}
+
+.life {
+    display: block;
+    margin-top: 10px; /* Separación de las vidas */
 }
 
 #guess-input {
@@ -74,8 +72,9 @@ body {
 }
 
 #grid {
-    display: grid;
-    grid-template-columns: repeat(5, 50px);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 5px;
     margin-top: 20px;
 }
