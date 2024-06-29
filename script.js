@@ -11,7 +11,7 @@ function init() {
     const input = document.getElementById("guess-input");
     const contenedorMensajes = document.getElementById('guesses'); // Contenedor de mensajes de fin del juego
 
-    alert('Bienvenido a Wordle PPY.\nSolo tienes 6 vidas. 😃\n\nSi la casilla se pone en verde la letra está en la ubicación correcta. 🟩\nSi la casilla se pone amarilla la letra está en la palabra pero en posición equivocada. 🟨');
+    alert('Bienvenido a Wordle PPY. \n Solo tienes 6 vidas. 😃\n\nSi la casilla se pone en verde la letra está en la ubicación correcta. 🟩\nSi la casilla se pone amarilla la letra está en la palabra pero en posición equivocada. 🟨');
 
     iniciarJuego();
 
@@ -124,7 +124,7 @@ function init() {
             intentos--;
             VIDA.innerHTML = intentos;
             if (intentos === 0) {
-                terminar("<h3>¡PERDISTE!🙁 La palabra era " + palabra + "</h3>");
+                terminar("<h3>¡PERDISTE!😖 La palabra era " + palabra + "</h3>");
             }
         }
     }
@@ -135,9 +135,7 @@ function init() {
 
         // Añadir confeti al ganar
         if (mensaje.includes("¡GANASTE!")) {
-            celebrar(true); // Caritas sonrientes
-        } else {
-            celebrar(false); // Caritas tristes
+            celebrar();
         }
 
         button.innerText = "Reiniciar";
@@ -145,22 +143,17 @@ function init() {
         button.addEventListener("click", reiniciarJuego);
     }
 
-    function celebrar(esGanador) {
+    function celebrar() {
         const confettiContainer = document.createElement('div');
         confettiContainer.className = 'confetti-container';
         document.body.appendChild(confettiContainer);
 
-        // Generar confeti de caritas sonrientes o tristes según corresponda
-        for (let i = 0; i < 100; i++) {
+        // Generar confeti
+        for (let i = 0; i < 50; i++) {
             const confetti = document.createElement('div');
             confetti.className = 'confetti';
             confetti.style.left = `${Math.random() * window.innerWidth}px`;
             confetti.style.animationDelay = `${Math.random() * 2}s`;
-            if (esGanador) {
-                confetti.innerHTML = '😃'; // Carita sonriente
-            } else {
-                confetti.innerHTML = '🙁'; // Carita triste
-            }
             confettiContainer.appendChild(confetti);
         }
 
