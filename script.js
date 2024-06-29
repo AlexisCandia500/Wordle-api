@@ -69,14 +69,22 @@ function init() {
         ROW.className = 'row';
 
         if (intento === palabra || diccionario.includes(intento)) {
-            for (let i in palabra) {
+            for (let i = 0; i < palabra.length; i++) {
                 const SPAN = document.createElement('div');
                 SPAN.className = 'row-letter';
 
                 if (intento[i] === palabra[i]) {
                     SPAN.innerHTML = intento[i];
                     SPAN.style.backgroundColor = '#79b851';
-                    SPAN.style.border = '#79b851';
+                    SPAN.style.border = '1px solid #79b851';
+                } else if (palabra.includes(intento[i])) {
+                    SPAN.innerHTML = intento[i];
+                    SPAN.style.backgroundColor = '#f3c237';
+                    SPAN.style.border = '1px solid #f3c237';
+                } else {
+                    SPAN.innerHTML = intento[i];
+                    SPAN.style.backgroundColor = '#a4aec4';
+                    SPAN.style.border = '1px solid #a4aec4';
                 }
                 ROW.appendChild(SPAN);
             }
@@ -84,22 +92,22 @@ function init() {
             GRID.appendChild(ROW);
             terminar("<h1>¡GANASTE!😀</h1>");
         } else {
-            for (let i in palabra) {
+            for (let i = 0; i < palabra.length; i++) {
                 const SPAN = document.createElement('div');
                 SPAN.className = 'row-letter';
 
                 if (intento[i] === palabra[i]) {
                     SPAN.innerHTML = intento[i];
                     SPAN.style.backgroundColor = '#79b851';
-                    SPAN.style.border = '#79b851';
+                    SPAN.style.border = '1px solid #79b851';
                 } else if (palabra.includes(intento[i])) {
                     SPAN.innerHTML = intento[i];
                     SPAN.style.backgroundColor = '#f3c237';
-                    SPAN.style.border = '#f3c237';
+                    SPAN.style.border = '1px solid #f3c237';
                 } else {
                     SPAN.innerHTML = intento[i];
                     SPAN.style.backgroundColor = '#a4aec4';
-                    SPAN.style.border = '#a4aec4';
+                    SPAN.style.border = '1px solid #a4aec4';
                 }
                 ROW.appendChild(SPAN);
             }
