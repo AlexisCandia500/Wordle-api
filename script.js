@@ -15,6 +15,7 @@ function init() {
 
     function iniciarJuego() {
         intentos = 6;
+        palabra = '';
         VIDA.innerHTML = intentos;
         input.disabled = false;
         input.value = '';
@@ -22,15 +23,9 @@ function init() {
         contenedorMensajes.innerHTML = ''; // Limpiar el mensaje de fin del juego
         GRID.innerHTML = '';
         button.innerText = "Adivinar";
-        button.removeEventListener('click', iniciarJuego);
+        button.removeEventListener('click', reiniciarJuego);
         button.addEventListener('click', validarInput);
-        input.addEventListener('keyup', (event) => {
-            ERROR.innerHTML = "";
-            input.style.borderColor = '#ccc';
-            if (event.key === 'Enter') {
-                validarInput();
-            }
-        });
+        input.addEventListener('keyup', manejarEnter);
 
         obtenerPalabraDesdeAPI();
     }
@@ -41,14 +36,12 @@ function init() {
             .then(data => {
                 palabra = data[0].toUpperCase();
                 console.log('Palabra de la API:', palabra);
-                iniciarJuegoUI();
             })
             .catch(error => {
                 console.error('Error al obtener la palabra desde la API:', error);
                 // En caso de error, se elige una palabra del diccionario
                 palabra = seleccionarPalabraDeDiccionario();
                 console.log('Palabra seleccionada del diccionario:', palabra);
-                iniciarJuegoUI();
             });
     }
 
@@ -57,15 +50,14 @@ function init() {
         return diccionario[randomIndex].toUpperCase();
     }
 
-    function iniciarJuegoUI() {
-        input.disabled = false;
-        input.value = '';
-        button.innerText = "Adivinar";
-        input.focus();
+    function manejarEnter(event) {
+        if (event.key === 'Enter') {
+            validarInput();
+        }
     }
 
     function validarInput() {
-        const intento = leerIntento().trim().toUpperCase();
+        const intento = leerIntento().trim();
         const LETRAS = /^[a-zA-Z]+$/;
         if (intento.length !== 5) {
             ERROR.innerHTML = "*Ingrese exactamente 5 caracteres";
@@ -136,8 +128,10 @@ function init() {
     }
 
     function reiniciarJuego() {
+        // Limpiar los eventos anteriores para evitar conflictos
+        button.removeEventListener('click', validarInput);
+        input.removeEventListener('keyup', manejarEnter);
         iniciarJuego();
-        obtenerPalabraDesdeAPI();
     }
 
     function leerIntento() {
