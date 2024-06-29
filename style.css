@@ -84,3 +84,7 @@ button:active {
     margin-top: 1rem;
 }
 
+.life {
+    margin-right: 10px; /* Ajusta el margen derecho según sea necesario */
+}
+
