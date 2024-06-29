@@ -3,23 +3,24 @@ window.addEventListener('load', init);
 function init() {
     let intentos;
     let palabra = '';
-    const diccionario = ['MADRE', 'HIJOS', 'PADRE', 'ADIOS'];
+    const diccionario = ['MADRE', 'ADIOS'];
     const VIDA = document.getElementById("vida");
     const GRID = document.getElementById("grid");
     const ERROR = document.getElementById("error");
     const button = document.getElementById("guess-button");
     const input = document.getElementById("guess-input");
-    const contenedorMensajes = document.getElementById('guesses');
+    const contenedorMensajes = document.getElementById('guesses'); // Contenedor de mensajes de fin del juego
 
     iniciarJuego();
 
     function iniciarJuego() {
         intentos = 6;
+        palabra = '';
         VIDA.innerHTML = intentos;
         input.disabled = false;
         input.value = '';
         ERROR.innerHTML = '';
-        contenedorMensajes.innerHTML = '';
+        contenedorMensajes.innerHTML = ''; // Limpiar el mensaje de fin del juego
         GRID.innerHTML = '';
         button.innerText = "Adivinar";
         button.removeEventListener('click', reiniciarJuego);
@@ -33,8 +34,16 @@ function init() {
         fetch('https://random-word.ryanrk.com/api/en/word/random/?length=5')
             .then(response => response.json())
             .then(data => {
-                palabra = data[0].toUpperCase();
-                console.log('Palabra de la API:', palabra);
+                let palabraCandidata = data[0].toUpperCase();
+                // Validar que la palabra solo contenga letras
+                const LETRAS = /^[A-Z]+$/;
+                if (LETRAS.test(palabraCandidata)) {
+                    palabra = palabraCandidata;
+                    console.log('Palabra de la API:', palabra);
+                } else {
+                    // En caso de que la palabra contenga caracteres especiales, se obtiene otra palabra
+                    obtenerPalabraDesdeAPI();
+                }
             })
             .catch(error => {
                 console.error('Error al obtener la palabra desde la API:', error);
@@ -57,7 +66,7 @@ function init() {
 
     function validarInput() {
         const intento = leerIntento().trim();
-        const LETRAS = /^[a-zA-Z]+$/;
+        const LETRAS = /^[A-Z]+$/;
         if (intento.length !== 5) {
             ERROR.innerHTML = "*Ingrese exactamente 5 caracteres";
             input.style.borderColor = 'red';
@@ -76,7 +85,7 @@ function init() {
         ROW.className = 'row';
 
         if (intento === palabra || diccionario.includes(intento)) {
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < palabra.length; i++) {
                 const SPAN = document.createElement('div');
                 SPAN.className = 'row-letter';
                 SPAN.innerHTML = intento[i];
@@ -84,10 +93,11 @@ function init() {
                 SPAN.style.border = '1px solid #79b851';
                 ROW.appendChild(SPAN);
             }
+
             GRID.appendChild(ROW);
             terminar("<h1>¡GANASTE!😀</h1>");
         } else {
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < palabra.length; i++) {
                 const SPAN = document.createElement('div');
                 SPAN.className = 'row-letter';
 
