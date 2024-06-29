@@ -67,12 +67,11 @@ function init() {
     function validarInput() {
         const intento = leerIntento().trim().toUpperCase();
         const LETRAS = /^[a-zA-Z]+$/;
-        if (intento.length !== 5 || !LETRAS.test(intento)) {
-            if (intento.length !== 5) {
-                ERROR.innerHTML = "*Ingrese exactamente 5 caracteres";
-            } else {
-                ERROR.innerHTML = "*Solo se admite letras";
-            }
+        if (intento.length !== 5) {
+            ERROR.innerHTML = "*Ingrese exactamente 5 caracteres";
+            input.style.borderColor = 'red';
+        } else if (!LETRAS.test(intento)) {
+            ERROR.innerHTML = "*Solo se admite letras";
             input.style.borderColor = 'red';
         } else {
             ERROR.innerHTML = "";
