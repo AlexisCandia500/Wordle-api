@@ -3,7 +3,7 @@ window.addEventListener('load', init);
 function init() {
     let intentos;
     let palabra = '';
-    const diccionario = ['MADRE', 'HIJOS', 'PADRE', 'ADIOS'];
+    const diccionario = ['MADRE', 'HIJOS'];
     const VIDA = document.getElementById("vida");
     const GRID = document.getElementById("grid");
     const ERROR = document.getElementById("error");
