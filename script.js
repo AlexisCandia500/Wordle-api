@@ -8,6 +8,7 @@ function init() {
     const ERROR = document.getElementById("error");
     const button = document.getElementById("guess-button");
     const input = document.getElementById("guess-input");
+    const contenedorMensajes = document.getElementById('guesses'); // Contenedor de mensajes de fin del juego
 
     function iniciarJuego() {
         intentos = 6;
@@ -16,6 +17,7 @@ function init() {
         input.value = '';
         ERROR.innerHTML = '';
         GRID.innerHTML = '';
+        contenedorMensajes.innerHTML = ''; // Limpiar el mensaje de finalización
         button.innerText = "Adivinar";
         button.removeEventListener('click', iniciarJuego);
         button.addEventListener('click', validarInput);
@@ -110,8 +112,7 @@ function init() {
 
     function terminar(mensaje) {
         input.disabled = true;
-        let contenedor = document.getElementById('guesses');
-        contenedor.innerHTML = mensaje;
+        contenedorMensajes.innerHTML = mensaje;
         button.innerText = "Reiniciar";
         button.removeEventListener('click', validarInput);
         button.addEventListener("click", iniciarJuego);
