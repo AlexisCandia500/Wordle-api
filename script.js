@@ -144,6 +144,41 @@ function init() {
         iniciarJuego();
     }
 
+function terminar(mensaje) {
+    input.disabled = true;
+    contenedorMensajes.innerHTML = mensaje;
+
+    // Añadir confeti al ganar
+    if (mensaje.includes("¡GANASTE!")) {
+        celebrar();
+    }
+
+    button.innerText = "Reiniciar";
+    button.removeEventListener('click', validarInput);
+    button.addEventListener("click", reiniciarJuego);
+}
+
+function celebrar() {
+    const confettiContainer = document.createElement('div');
+    confettiContainer.className = 'confetti-container';
+    document.body.appendChild(confettiContainer);
+
+    // Generar confeti
+    for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = `${Math.random() * window.innerWidth}px`;
+        confetti.style.animationDelay = `${Math.random() * 2}s`;
+        confettiContainer.appendChild(confetti);
+    }
+
+    // Limpiar confeti después de un tiempo
+    setTimeout(() => {
+        confettiContainer.remove();
+    }, 5000); // 5 segundos
+}
+
+
     function leerIntento() {
         let intento = input.value.trim().toUpperCase();
         return intento;
