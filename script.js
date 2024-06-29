@@ -95,7 +95,8 @@ function init() {
             }
 
             GRID.appendChild(ROW);
-            terminar("<h1>🎉¡GANASTE!🎉</h1>");
+            lanzarConfeti();
+            terminar("<h1>¡GANASTE!😀</h1>");
         } else {
             for (let i = 0; i < palabra.length; i++) {
                 const SPAN = document.createElement('div');
@@ -122,9 +123,17 @@ function init() {
             intentos--;
             VIDA.innerHTML = intentos;
             if (intentos === 0) {
-                terminar("<h3>¡PERDISTE!😭 La palabra era " + palabra + "</h3>");
+                terminar("<h3>¡PERDISTE!😖 La palabra era " + palabra + "</h3>");
             }
         }
+    }
+
+    function lanzarConfeti() {
+        confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
     }
 
     function terminar(mensaje) {
