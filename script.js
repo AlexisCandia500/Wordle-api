@@ -17,6 +17,15 @@ function init() {
         ERROR.innerHTML = '';
         GRID.innerHTML = '';
         button.innerText = "Adivinar";
+        button.removeEventListener('click', iniciarJuego);
+        button.addEventListener('click', validarInput);
+        input.addEventListener('keyup', (event) => {
+            ERROR.innerHTML = "";
+            input.style.borderColor = '#ccc';
+            if (event.key === 'Enter') {
+                validarInput();
+            }
+        });
         fetch('https://random-word.ryanrk.com/api/en/word/random/?length=5')
             .then(response => response.json())
             .then(data => {
@@ -27,15 +36,6 @@ function init() {
                 console.error('Error al obtener la palabra:', error);
             });
     }
-
-    button.addEventListener('click', validarInput);
-    input.addEventListener('keyup', (event) => {
-        ERROR.innerHTML = "";
-        input.style.borderColor = '#ccc';
-        if (event.key === 'Enter') {
-            validarInput();
-        }
-    });
 
     function validarInput() {
         const intento = leerIntento();
