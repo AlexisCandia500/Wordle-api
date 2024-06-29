@@ -36,15 +36,17 @@ function init() {
     }
 
     function obtenerPalabra() {
-        fetch('https://random-word.ryanrk.com/api/en/word/random/?length=5')
-            .then(response => response.json())
-            .then(data => {
-                palabra = data[0].toUpperCase();
-                console.log('Palabra de la API:', palabra);
-            })
-            .catch(error => {
-                console.error('Error al obtener la palabra:', error);
-            });
+        const randomIndex = Math.floor(Math.random() * diccionario.length);
+        palabra = diccionario[randomIndex].toUpperCase();
+        console.log('Palabra del diccionario:', palabra);
+        iniciarJuegoUI();
+    }
+
+    function iniciarJuegoUI() {
+        input.disabled = false;
+        input.value = '';
+        button.innerText = "Adivinar";
+        input.focus();
     }
 
     function validarInput() {
@@ -68,24 +70,13 @@ function init() {
         const ROW = document.createElement('div');
         ROW.className = 'row';
 
-        if (intento === palabra || diccionario.includes(intento)) {
+        if (intento === palabra) {
             for (let i = 0; i < palabra.length; i++) {
                 const SPAN = document.createElement('div');
                 SPAN.className = 'row-letter';
-
-                if (intento[i] === palabra[i]) {
-                    SPAN.innerHTML = intento[i];
-                    SPAN.style.backgroundColor = '#79b851';
-                    SPAN.style.border = '1px solid #79b851';
-                } else if (palabra.includes(intento[i])) {
-                    SPAN.innerHTML = intento[i];
-                    SPAN.style.backgroundColor = '#f3c237';
-                    SPAN.style.border = '1px solid #f3c237';
-                } else {
-                    SPAN.innerHTML = intento[i];
-                    SPAN.style.backgroundColor = '#a4aec4';
-                    SPAN.style.border = '1px solid #a4aec4';
-                }
+                SPAN.innerHTML = intento[i];
+                SPAN.style.backgroundColor = '#79b851';
+                SPAN.style.border = '1px solid #79b851';
                 ROW.appendChild(SPAN);
             }
 
