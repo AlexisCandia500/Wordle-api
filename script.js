@@ -23,40 +23,61 @@ function init() {
         GRID.innerHTML = '';
         button.innerText = "Adivinar";
         button.removeEventListener('click', iniciarJuego);
-        button.addEventListener('click', manejarIntento);
+        button.addEventListener('click', validarInput);
         input.addEventListener('keyup', (event) => {
             ERROR.innerHTML = "";
             input.style.borderColor = '#ccc';
             if (event.key === 'Enter') {
-                manejarIntento();
+                validarInput();
             }
         });
 
-        obtenerPalabra();
+        obtenerPalabraDesdeAPI();
     }
 
-    function obtenerPalabra() {
-        const randomIndex = Math.floor(Math.random() * diccionario.length);
-        palabra = diccionario[randomIndex].toUpperCase();
-        console.log('Palabra del diccionario:', palabra);
-        input.disabled = false;
-        input.value = '';
-        input.focus();
+    function obtenerPalabraDesdeAPI() {
+        fetch('https://random-word.ryanrk.com/api/en/word/random/?length=5')
+            .then(response => response.json())
+            .then(data => {
+                palabra = data[0].toUpperCase();
+                console.log('Palabra de la API:', palabra);
+                input.disabled = false;
+                input.value = '';
+                input.focus();
+            })
+            .catch(error => {
+                console.error('Error al obtener la palabra:', error);
+                // En caso de error al obtener la palabra, se usa una palabra del diccionario
+                const randomIndex = Math.floor(Math.random() * diccionario.length);
+                palabra = diccionario[randomIndex].toUpperCase();
+                console.log('Palabra del diccionario (por error API):', palabra);
+                input.disabled = false;
+                input.value = '';
+                input.focus();
+            });
     }
 
-    function manejarIntento() {
-        const intento = input.value.trim().toUpperCase();
-        if (validarEntrada(intento)) {
+    function validarInput() {
+        const intento = leerIntento().trim().toUpperCase();
+        const LETRAS = /^[a-zA-Z]+$/;
+        if (intento.length !== 5) {
+            ERROR.innerHTML = "*Ingrese exactamente 5 caracteres";
+            input.style.borderColor = 'red';
+        } else if (!LETRAS.test(intento)) {
+            ERROR.innerHTML = "*Solo se admite letras";
+            input.style.borderColor = 'red';
+        } else {
+            ERROR.innerHTML = "";
+            input.style.borderColor = '#ccc';
             intentar(intento);
         }
     }
-
 
     function intentar(intento) {
         const ROW = document.createElement('div');
         ROW.className = 'row';
 
-        if (intento === palabra) {
+        if (intento === palabra || diccionario.includes(intento)) {
             for (let i = 0; i < palabra.length; i++) {
                 const SPAN = document.createElement('div');
                 SPAN.className = 'row-letter';
@@ -103,17 +124,17 @@ function init() {
         input.disabled = true;
         contenedorMensajes.innerHTML = mensaje;
         button.innerText = "Reiniciar";
-        button.removeEventListener('click', manejarIntento);
+        button.removeEventListener('click', validarInput);
         button.addEventListener("click", reiniciarJuego);
     }
 
     function reiniciarJuego() {
         iniciarJuego();
-        obtenerPalabra();
+        obtenerPalabraDesdeAPI();
     }
 
-    function mostrarError(mensaje) {
-        ERROR.innerHTML = mensaje;
-        input.style.borderColor = 'red';
+    function leerIntento() {
+        let intento = input.value.trim();
+        return intento;
     }
 }
