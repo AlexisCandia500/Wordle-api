@@ -48,11 +48,19 @@ function init() {
     }
 
     function validarInput() {
-        const intento = leerIntento().trim().toUpperCase();
-        
-        ERROR.innerHTML = "";
-        input.style.borderColor = '#ccc';
-        intentar();
+        const intento = leerIntento().trim();
+        const LETRAS = /^[a-zA-Z]+$/;
+        if (intento.length !== 5) {
+            ERROR.innerHTML = "*Ingrese exactamente 5 caracteres";
+            input.style.borderColor = 'red';
+        } else if (!LETRAS.test(intento)) {
+            ERROR.innerHTML = "*Solo se admite letras";
+            input.style.borderColor = 'red';
+        } else {
+            ERROR.innerHTML = "";
+            input.style.borderColor = '#ccc';
+            intentar();
+        }
     }
 
     function intentar() {
@@ -128,7 +136,7 @@ function init() {
     }
 
     function leerIntento() {
-        let intento = input.value.trim();
+        let intento = input.value.trim().toUpperCase();
         return intento;
     }
 }
