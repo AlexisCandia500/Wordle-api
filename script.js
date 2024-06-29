@@ -1,28 +1,32 @@
 window.addEventListener('load', init);
 function init() {
-
-    let intentos = 6;
+    let intentos;
     let diccionario = ['MADRE', 'HIJOS', 'PADRE', 'ADIOS'];
     let palabra = '';
-
-    // Obtenemos una palabra aleatoria de la API
-    fetch('https://random-word.ryanrk.com/api/en/word/random/?length=5')
-        .then(response => response.json())
-        .then(data => {
-            palabra = data[0].toUpperCase();
-            console.log('Palabra de la API:', palabra);
-        })
-        .catch(error => {
-            console.error('Error al obtener la palabra:', error);
-        });
-
-    // Definimos las constantes
-    const button = document.getElementById("guess-button");
-    const input = document.getElementById("guess-input");
-    const ERROR = document.getElementById("error");
     const VIDA = document.getElementById("vida");
     const GRID = document.getElementById("grid");
-    VIDA.innerHTML = intentos;
+    const ERROR = document.getElementById("error");
+    const button = document.getElementById("guess-button");
+    const input = document.getElementById("guess-input");
+
+    function iniciarJuego() {
+        intentos = 6;
+        VIDA.innerHTML = intentos;
+        input.disabled = false;
+        input.value = '';
+        ERROR.innerHTML = '';
+        GRID.innerHTML = '';
+        button.innerText = "Adivinar";
+        fetch('https://random-word.ryanrk.com/api/en/word/random/?length=5')
+            .then(response => response.json())
+            .then(data => {
+                palabra = data[0].toUpperCase();
+                console.log('Palabra de la API:', palabra);
+            })
+            .catch(error => {
+                console.error('Error al obtener la palabra:', error);
+            });
+    }
 
     button.addEventListener('click', validarInput);
     input.addEventListener('keyup', (event) => {
@@ -110,11 +114,7 @@ function init() {
         contenedor.innerHTML = mensaje;
         button.innerText = "Reiniciar";
         button.removeEventListener('click', validarInput);
-        button.addEventListener("click", reiniciar);
-    }
-
-    function reiniciar() {
-        location.reload();
+        button.addEventListener("click", iniciarJuego);
     }
 
     function leerIntento() {
@@ -122,4 +122,6 @@ function init() {
         intento = intento.toUpperCase();
         return intento;
     }
+
+    iniciarJuego();
 }
