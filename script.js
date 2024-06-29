@@ -3,7 +3,7 @@ window.addEventListener('load', init);
 function init() {
     let intentos;
     let palabra = '';
-    const diccionario = ['MADRE', 'HIJOS', 'PADRE', 'ADIOS'];
+    const diccionario = ['MADRE', 'HIJOS'];
     const VIDA = document.getElementById("vida");
     const GRID = document.getElementById("grid");
     const ERROR = document.getElementById("error");
@@ -78,17 +78,7 @@ function init() {
         }
     }
 
-    function validarEntrada(intento) {
-        const LETRAS = /^[a-zA-Z]+$/;
-        if (intento.length !== 5) {
-            mostrarError("*Ingrese exactamente 5 caracteres");
-            return false;
-        } else if (!LETRAS.test(intento)) {
-            mostrarError("*Solo se admite letras");
-            return false;
-        }
-        return true;
-    }
+    
 
     function intentar(intento) {
         const ROW = document.createElement('div');
