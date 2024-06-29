@@ -36,39 +36,12 @@ function init() {
     }
 
     function obtenerPalabra() {
-        palabra = generarPalabraAleatoria();
-        console.log('Palabra generada:', palabra);
+        const randomIndex = Math.floor(Math.random() * diccionario.length);
+        palabra = diccionario[randomIndex].toUpperCase();
+        console.log('Palabra del diccionario:', palabra);
         input.disabled = false;
         input.value = '';
         input.focus();
-    }
-
-    function generarPalabraAleatoria() {
-        if (Math.random() < 0.5) {
-            // Generar palabra aleatoria desde la API
-            return obtenerPalabraDesdeAPI();
-        } else {
-            // Seleccionar palabra aleatoria del diccionario
-            return seleccionarPalabraDiccionario();
-        }
-    }
-
-    function obtenerPalabraDesdeAPI() {
-        return fetch('https://random-word.ryanrk.com/api/en/word/random/?length=5')
-            .then(response => response.json())
-            .then(data => {
-                return data[0].toUpperCase();
-            })
-            .catch(error => {
-                console.error('Error al obtener la palabra desde la API:', error);
-                // Si falla la API, seleccionar una palabra del diccionario como fallback
-                return seleccionarPalabraDiccionario();
-            });
-    }
-
-    function seleccionarPalabraDiccionario() {
-        const randomIndex = Math.floor(Math.random() * diccionario.length);
-        return diccionario[randomIndex].toUpperCase();
     }
 
     function manejarIntento() {
@@ -78,7 +51,6 @@ function init() {
         }
     }
 
-    
 
     function intentar(intento) {
         const ROW = document.createElement('div');
@@ -137,6 +109,7 @@ function init() {
 
     function reiniciarJuego() {
         iniciarJuego();
+        obtenerPalabra();
     }
 
     function mostrarError(mensaje) {
