@@ -15,7 +15,6 @@ function init() {
 
     function iniciarJuego() {
         intentos = 6;
-        palabra = '';
         VIDA.innerHTML = intentos;
         input.disabled = false;
         input.value = '';
@@ -28,13 +27,6 @@ function init() {
         input.addEventListener('keyup', manejarEnter);
 
         obtenerPalabraDesdeAPI();
-        mostrarMensajeInicial();
-    }
-
-    function mostrarMensajeInicial() {
-        alert("Bienvenido a Wordle PPY.\n Tienes 6 vidas 😄 \n\n" +
-              "Si la casilla se pone en verde, la letra está en la ubicación correcta. 🟩 \n" +
-              "Si la casilla se pone amarilla, la letra está en la palabra pero en posición equivocada. 🟨");
     }
 
     function obtenerPalabraDesdeAPI() {
@@ -46,7 +38,6 @@ function init() {
             })
             .catch(error => {
                 console.error('Error al obtener la palabra desde la API:', error);
-                // En caso de error, se elige una palabra del diccionario
                 palabra = seleccionarPalabraDeDiccionario();
                 console.log('Palabra seleccionada del diccionario:', palabra);
             });
@@ -64,7 +55,7 @@ function init() {
     }
 
     function validarInput() {
-        const intento = leerIntento().trim();
+        const intento = leerIntento().trim().toUpperCase();
         const LETRAS = /^[a-zA-Z]+$/;
         if (intento.length !== 5) {
             ERROR.innerHTML = "*Ingrese exactamente 5 caracteres";
@@ -86,13 +77,8 @@ function init() {
         if (intento === palabra || diccionario.includes(intento)) {
             for (let i = 0; i < palabra.length; i++) {
                 const SPAN = document.createElement('div');
-                SPAN.className = 'row-letter';
-                SPAN.innerHTML = intento[i];
-                if (intento[i] === palabra[i]) {
-                    SPAN.classList.add('green');
-                } else if (palabra.includes(intento[i])) {
-                    SPAN.classList.add('yellow');
-                }
+                SPAN.className = 'row-letter green'; // Aplicar clase 'green' para letras correctas
+                SPAN.innerHTML = palabra[i];
                 ROW.appendChild(SPAN);
             }
 
@@ -105,12 +91,13 @@ function init() {
 
                 if (intento[i] === palabra[i]) {
                     SPAN.innerHTML = intento[i];
-                    SPAN.classList.add('green');
+                    SPAN.style.backgroundColor = '#79b851';
                 } else if (palabra.includes(intento[i])) {
                     SPAN.innerHTML = intento[i];
-                    SPAN.classList.add('yellow');
+                    SPAN.style.backgroundColor = '#f3c237';
                 } else {
                     SPAN.innerHTML = intento[i];
+                    SPAN.style.backgroundColor = '#a4aec4';
                 }
                 ROW.appendChild(SPAN);
             }
@@ -120,7 +107,7 @@ function init() {
             intentos--;
             VIDA.innerHTML = intentos;
             if (intentos === 0) {
-                terminar("<h3>¡PERDISTE!🙁 La palabra era " + palabra + "</h3>");
+                terminar("<h3>¡PERDISTE!😖 La palabra era " + palabra + "</h3>");
             }
         }
     }
@@ -135,12 +122,12 @@ function init() {
 
     function reiniciarJuego() {
         button.removeEventListener('click', validarInput);
-        input.removeEventListener('keyup', manejarEnter);
         iniciarJuego();
+        obtenerPalabraDesdeAPI();
     }
 
     function leerIntento() {
-        let intento = input.value.trim().toUpperCase();
+        let intento = input.value.trim();
         return intento;
     }
 }
