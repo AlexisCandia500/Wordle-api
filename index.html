@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wordle PPY</title>
-    <link rel="stylesheet" href="./style.css">
-    <script src="./script.js" defer></script>
-    <!-- para iconos -->
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <header class="header">
-        <span><i class="fa fa-heart icon red" id="vida" aria-hidden="true"></i></span>
-    </header>
-    <h1>Wordle PPY</h1>
-    <input type="text" id="guess-input" maxlength="5">
-    <span id="error"></span>
-    <button id="guess-button">Intentar</button>
-    <p id="guesses"></p>
-    <div class="grid-container">
-        <div id="grid"></div>
+    <div class="container">
+        <header class="header">
+            <h1>Wordle PPY</h1>
+        </header>
+        <div class="game">
+            <span class="life"><i class="fa fa-heart icon red" aria-hidden="true"></i> Vidas: <span id="vida">6</span></span>
+            <input type="text" id="guess-input" maxlength="5">
+            <span id="error"></span>
+            <button id="guess-button">Intentar</button>
+            <p id="guesses"></p>
+            <div id="grid"></div>
+        </div>
     </div>
-
+    <script src="script.js" defer></script>
 </body>
 </html>
