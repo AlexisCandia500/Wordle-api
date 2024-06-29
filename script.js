@@ -122,7 +122,7 @@ function init() {
             intentos--;
             VIDA.innerHTML = intentos;
             if (intentos === 0) {
-                terminar("<h3>¡PERDISTE!😖 La palabra era " + palabra + "</h3>");
+                terminar("<h3>¡PERDISTE!😭 La palabra era " + palabra + "</h3>");
             }
         }
     }
