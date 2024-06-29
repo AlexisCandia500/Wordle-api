@@ -139,7 +139,7 @@ function init() {
         iniciarJuego();
         obtenerPalabraDesdeAPI();
     }
-
+    validarInput() 
     function leerIntento() {
         let intento = input.value.trim();
         return intento;
