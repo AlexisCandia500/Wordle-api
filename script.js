@@ -11,7 +11,7 @@ function init() {
     const input = document.getElementById("guess-input");
     const contenedorMensajes = document.getElementById('guesses'); // Contenedor de mensajes de fin del juego
 
-    alert('Bienvenido a Wordle PPY. \n Solo tienes 6 vidas. 😃\n\nSi la casilla se pone en verde la letra está en la ubicación correcta. 🟩\nSi la casilla se pone amarilla la letra está en la palabra pero en posición equivocada. 🟨');
+    alert('Bienvenido a Wordle PPY.\nSolo tienes 6 vidas. 😃\n\nSi la casilla se pone en verde la letra está en la ubicación correcta. 🟩\nSi la casilla se pone amarilla la letra está en la palabra pero en posición equivocada. 🟨');
 
     iniciarJuego();
 
