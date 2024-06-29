@@ -32,9 +32,9 @@ function init() {
     }
 
     function mostrarMensajeInicial() {
-        alert("Bienvenido a Wordle PPY. Tienes 6 vidas. \n\n" +
-              "Si la casilla se pone en verde, la letra está en la ubicación correcta. \n" +
-              "Si la casilla se pone amarilla, la letra está en la palabra pero en posición equivocada.");
+        alert("Bienvenido a Wordle PPY.\n Tienes 6 vidas 😄 \n\n" +
+              "Si la casilla se pone en verde, la letra está en la ubicación correcta. 🟩 \n" +
+              "Si la casilla se pone amarilla, la letra está en la palabra pero en posición equivocada. 🟨");
     }
 
     function obtenerPalabraDesdeAPI() {
