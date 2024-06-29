@@ -131,15 +131,13 @@ function init() {
         input.disabled = true;
         contenedorMensajes.innerHTML = mensaje;
         button.innerText = "Reiniciar";
-        button.removeEventListener('click', validarInput);
         button.addEventListener("click", reiniciarJuego);
     }
 
     function reiniciarJuego() {
         iniciarJuego();
         obtenerPalabraDesdeAPI();
-    }
-    validarInput() 
+    } 
     function leerIntento() {
         let intento = input.value.trim();
         return intento;
