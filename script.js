@@ -148,8 +148,8 @@ function init() {
         confettiContainer.className = 'confetti-container';
         document.body.appendChild(confettiContainer);
 
-        // Generar confeti
-        for (let i = 0; i < 50; i++) {
+        // Generar confeti de caritas sonrientes
+        for (let i = 0; i < 100; i++) {
             const confetti = document.createElement('div');
             confetti.className = 'confetti';
             confetti.style.left = `${Math.random() * window.innerWidth}px`;
