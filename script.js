@@ -3,7 +3,7 @@ window.addEventListener('load', init);
 function init() {
     let intentos;
     let palabra = '';
-    const diccionario = ['MADRE', 'HIJOS'];
+    const diccionario = ['MADRE', 'HIJOS', 'PADRE', 'ADIOS'];
     const VIDA = document.getElementById("vida");
     const GRID = document.getElementById("grid");
     const ERROR = document.getElementById("error");
@@ -41,20 +41,27 @@ function init() {
             .then(data => {
                 palabra = data[0].toUpperCase();
                 console.log('Palabra de la API:', palabra);
-                input.disabled = false;
-                input.value = '';
-                input.focus();
+                iniciarJuegoUI();
             })
             .catch(error => {
-                console.error('Error al obtener la palabra:', error);
-                // En caso de error al obtener la palabra, se usa una palabra del diccionario
-                const randomIndex = Math.floor(Math.random() * diccionario.length);
-                palabra = diccionario[randomIndex].toUpperCase();
-                console.log('Palabra del diccionario (por error API):', palabra);
-                input.disabled = false;
-                input.value = '';
-                input.focus();
+                console.error('Error al obtener la palabra desde la API:', error);
+                // En caso de error, se elige una palabra del diccionario
+                palabra = seleccionarPalabraDeDiccionario();
+                console.log('Palabra seleccionada del diccionario:', palabra);
+                iniciarJuegoUI();
             });
+    }
+
+    function seleccionarPalabraDeDiccionario() {
+        const randomIndex = Math.floor(Math.random() * diccionario.length);
+        return diccionario[randomIndex].toUpperCase();
+    }
+
+    function iniciarJuegoUI() {
+        input.disabled = false;
+        input.value = '';
+        button.innerText = "Adivinar";
+        input.focus();
     }
 
     function validarInput() {
