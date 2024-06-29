@@ -1,8 +1,9 @@
 window.addEventListener('load', init);
+
 function init() {
     let intentos;
-    let diccionario = ['MADRE', 'HIJOS', 'PADRE', 'ADIOS'];
     let palabra = '';
+    const diccionario = ['MADRE', 'HIJOS', 'PADRE', 'ADIOS'];
     const VIDA = document.getElementById("vida");
     const GRID = document.getElementById("grid");
     const ERROR = document.getElementById("error");
@@ -10,14 +11,16 @@ function init() {
     const input = document.getElementById("guess-input");
     const contenedorMensajes = document.getElementById('guesses'); // Contenedor de mensajes de fin del juego
 
+    iniciarJuego();
+
     function iniciarJuego() {
         intentos = 6;
         VIDA.innerHTML = intentos;
         input.disabled = false;
         input.value = '';
         ERROR.innerHTML = '';
+        contenedorMensajes.innerHTML = ''; // Limpiar el mensaje de fin del juego
         GRID.innerHTML = '';
-        contenedorMensajes.innerHTML = ''; // Limpiar el mensaje de finalización
         button.innerText = "Adivinar";
         button.removeEventListener('click', iniciarJuego);
         button.addEventListener('click', validarInput);
@@ -28,6 +31,11 @@ function init() {
                 validarInput();
             }
         });
+
+        obtenerPalabra();
+    }
+
+    function obtenerPalabra() {
         fetch('https://random-word.ryanrk.com/api/en/word/random/?length=5')
             .then(response => response.json())
             .then(data => {
@@ -78,7 +86,6 @@ function init() {
 
             GRID.appendChild(ROW);
             terminar("<h1>¡GANASTE!😀</h1>");
-            return;
         } else {
             for (let i in palabra) {
                 const SPAN = document.createElement('div');
@@ -104,7 +111,7 @@ function init() {
             input.value = "";
             intentos--;
             VIDA.innerHTML = intentos;
-            if (intentos == 0) {
+            if (intentos === 0) {
                 terminar("<h3>¡PERDISTE!😖 La palabra era " + palabra + "</h3>");
             }
         }
@@ -115,14 +122,16 @@ function init() {
         contenedorMensajes.innerHTML = mensaje;
         button.innerText = "Reiniciar";
         button.removeEventListener('click', validarInput);
-        button.addEventListener("click", iniciarJuego);
+        button.addEventListener("click", reiniciarJuego);
+    }
+
+    function reiniciarJuego() {
+        iniciarJuego();
+        obtenerPalabra();
     }
 
     function leerIntento() {
-        let intento = document.getElementById("guess-input").value;
-        intento = intento.toUpperCase();
+        let intento = input.value.trim().toUpperCase();
         return intento;
     }
-
-    iniciarJuego();
 }
