@@ -49,15 +49,10 @@ function init() {
 
     function validarInput() {
         const intento = leerIntento().trim().toUpperCase();
-        const LETRAS = /^[a-zA-Z]+$/;
-        if (!LETRAS.test(intento)) {
-            ERROR.innerHTML = "*Solo se admite letras";
-            input.style.borderColor = 'red';
-        } else {
-            ERROR.innerHTML = "";
-            input.style.borderColor = '#ccc';
-            intentar();
-        }
+        
+        ERROR.innerHTML = "";
+        input.style.borderColor = '#ccc';
+        intentar();
     }
 
     function intentar() {
