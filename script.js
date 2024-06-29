@@ -1,4 +1,4 @@
-window.addEventListener('load', init);
+window.addEventListener('DOMContentLoaded', init);
 
 function init() {
     let intentos;
@@ -10,6 +10,8 @@ function init() {
     const button = document.getElementById("guess-button");
     const input = document.getElementById("guess-input");
     const contenedorMensajes = document.getElementById('guesses'); // Contenedor de mensajes de fin del juego
+
+    alert('Bienvenido a Wordle PPY. \n Solo tienes 6 vidas. 😃\n\nSi la casilla se pone en verde la letra está en la ubicación correcta. 🟩\nSi la casilla se pone amarilla la letra está en la palabra pero en posición equivocada. 🟨');
 
     iniciarJuego();
 
