@@ -95,7 +95,7 @@ function init() {
             }
 
             GRID.appendChild(ROW);
-            terminar("<h1>¡GANASTE!😀</h1>");
+            terminar("<h1>🎉¡GANASTE!🎉</h1>");
         } else {
             for (let i = 0; i < palabra.length; i++) {
                 const SPAN = document.createElement('div');
