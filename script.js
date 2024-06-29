@@ -3,7 +3,7 @@ window.addEventListener('load', init);
 function init() {
     let intentos;
     let palabra = '';
-    const diccionario = ['MADRE', 'HIJOS', 'PADRE', 'ADIOS'];
+    const diccionario = ['MADRE','ADIOS'];
     const VIDA = document.getElementById("vida");
     const GRID = document.getElementById("grid");
     const ERROR = document.getElementById("error");
@@ -135,7 +135,7 @@ function init() {
     }
 
     function leerIntento() {
-        let intento = input.value.trim();
+        let intento = input.value.trim().toUpperCase();
         return intento;
     }
 }
