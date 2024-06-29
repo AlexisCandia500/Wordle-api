@@ -3,7 +3,7 @@ window.addEventListener('load', init);
 function init() {
     let intentos;
     let palabra = '';
-    const diccionario = ['MADRE', 'HIJOS'];
+    const diccionario = ['MADRE', 'HIJOS', 'PADRE', 'ADIOS'];
     const VIDA = document.getElementById("vida");
     const GRID = document.getElementById("grid");
     const ERROR = document.getElementById("error");
@@ -67,11 +67,12 @@ function init() {
     function validarInput() {
         const intento = leerIntento().trim().toUpperCase();
         const LETRAS = /^[a-zA-Z]+$/;
-        if (intento.length !== 5) {
-            ERROR.innerHTML = "*Ingrese exactamente 5 caracteres";
-            input.style.borderColor = 'red';
-        } else if (!LETRAS.test(intento)) {
-            ERROR.innerHTML = "*Solo se admite letras";
+        if (intento.length !== 5 || !LETRAS.test(intento)) {
+            if (intento.length !== 5) {
+                ERROR.innerHTML = "*Ingrese exactamente 5 caracteres";
+            } else {
+                ERROR.innerHTML = "*Solo se admite letras";
+            }
             input.style.borderColor = 'red';
         } else {
             ERROR.innerHTML = "";
@@ -131,13 +132,15 @@ function init() {
         input.disabled = true;
         contenedorMensajes.innerHTML = mensaje;
         button.innerText = "Reiniciar";
+        button.removeEventListener('click', validarInput);
         button.addEventListener("click", reiniciarJuego);
     }
 
     function reiniciarJuego() {
         iniciarJuego();
         obtenerPalabraDesdeAPI();
-    } 
+    }
+
     function leerIntento() {
         let intento = input.value.trim();
         return intento;
