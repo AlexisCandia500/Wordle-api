@@ -141,6 +141,11 @@ button:active {
     animation: aparecer 3s ease-in-out;
 }
 
+h1.animacion-titulo {
+    font-size: 4rem; /*ajustar el tamaño según necesidades */
+    font-weight: bold;
+}
+
 @keyframes confetti-fall {
     0% {
         transform: translateY(-100vh) rotateZ(0deg);
