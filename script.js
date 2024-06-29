@@ -157,7 +157,13 @@ function init() {
             confettiContainer.appendChild(confetti);
         }
 
-        // Limpiar confeti después de un tiempo
+        // Mostrar emoji de carita sonriente
+        const emoji = document.createElement('div');
+        emoji.innerHTML = '😃'; // Emoji de carita sonriente
+        emoji.className = 'emoji-animation';
+        confettiContainer.appendChild(emoji);
+
+        // Limpiar confeti y emoji después de un tiempo
         setTimeout(() => {
             confettiContainer.remove();
         }, 5000); // 5 segundos
