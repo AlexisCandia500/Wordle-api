@@ -1,13 +1,16 @@
+
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wordle PPY</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
+    <!-- para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+    
     <div class="container">
         <header class="header">
             <h1>Wordle PPY</h1>
@@ -21,6 +24,12 @@
             <div id="grid"></div>
         </div>
     </div>
-    <script src="script.js" defer></script>
+<script src="./script.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            alert('Bienvenido a Wordle PPY. \n Solo tienes 6 vidas. 😃\n\nSi la casilla se pone en verde la letra está en la ubicación correcta. 🟩\nSi la casilla se pone amarilla la letra está en la palabra pero en posición equivocada. 🟨');
+        });
+    </script>
 </body>
 </html>
+
