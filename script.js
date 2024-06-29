@@ -39,18 +39,13 @@ function init() {
         const randomIndex = Math.floor(Math.random() * diccionario.length);
         palabra = diccionario[randomIndex].toUpperCase();
         console.log('Palabra del diccionario:', palabra);
-        iniciarJuegoUI();
-    }
-
-    function iniciarJuegoUI() {
         input.disabled = false;
         input.value = '';
-        button.innerText = "Adivinar";
         input.focus();
     }
 
     function validarInput() {
-        const intento = leerIntento().trim();
+        const intento = leerIntento().trim().toUpperCase();
         const LETRAS = /^[a-zA-Z]+$/;
         if (intento.length !== 5) {
             ERROR.innerHTML = "*Ingrese exactamente 5 caracteres";
@@ -61,12 +56,11 @@ function init() {
         } else {
             ERROR.innerHTML = "";
             input.style.borderColor = '#ccc';
-            intentar();
+            intentar(intento);
         }
     }
 
-    function intentar() {
-        const intento = leerIntento();
+    function intentar(intento) {
         const ROW = document.createElement('div');
         ROW.className = 'row';
 
@@ -127,7 +121,7 @@ function init() {
     }
 
     function leerIntento() {
-        let intento = input.value.trim().toUpperCase();
+        let intento = input.value.trim();
         return intento;
     }
 }
