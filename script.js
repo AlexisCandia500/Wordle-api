@@ -16,17 +16,12 @@ function init() {
             console.error('Error al obtener la palabra:', error);
         });
 
-    // Usamos local storage para guardar el puntaje
-    // localStorage.setItem('puntos', ganado);
-    // let puntos = localStorage.getItem('puntos');
-    // let puntosInt = parseInt(puntos);
-    // console.log(puntosInt); 
-
     // Definimos las constantes
     const button = document.getElementById("guess-button");
     const input = document.getElementById("guess-input");
     const ERROR = document.getElementById("error");
     const VIDA = document.getElementById("vida");
+    const GRID = document.getElementById("grid");
     VIDA.innerHTML = intentos;
 
     button.addEventListener('click', validarInput);
@@ -59,7 +54,6 @@ function init() {
 
     function intentar() {
         const intento = leerIntento();
-        const GRID = document.getElementById("grid");
         const ROW = document.createElement('div');
         ROW.className = 'row';
 
@@ -77,7 +71,7 @@ function init() {
             }
 
             GRID.appendChild(ROW);
-            terminar("<h1>¡GANASTE!😀</h1>")
+            terminar("<h1>¡GANASTE!😀</h1>");
             return;
         } else {
             for (let i in palabra) {
@@ -115,10 +109,12 @@ function init() {
         let contenedor = document.getElementById('guesses');
         contenedor.innerHTML = mensaje;
         button.innerText = "Reiniciar";
-        button.addEventListener("click", () => {
-            GRID.innerHTML = "";
-            location.reload();
-        });
+        button.removeEventListener('click', validarInput);
+        button.addEventListener("click", reiniciar);
+    }
+
+    function reiniciar() {
+        location.reload();
     }
 
     function leerIntento() {
