@@ -37,7 +37,7 @@ h3 {
 
 #guess-input {
     display: block;
-    margin: 0 auto;
+    margin: 10px auto; /* Aumentado el margen para separar del span de vidas */
     padding: 10px;
     font-size: 18px;
     width: 250px;
@@ -143,4 +143,30 @@ button:active {
     100% {
         transform: translateY(100vh) rotateZ(360deg);
     }
+}
+
+/* Estilos para el emoji de carita sonriente */
+.emoji-animation {
+    width: 50px;
+    height: 50px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><text x="0" y="45" font-size="45" style="fill:black;">😃</text></svg>') no-repeat;
+    background-size: contain;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Estilos para el emoji de carita triste */
+.sad-emoji {
+    width: 50px;
+    height: 50px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><text x="0" y="45" font-size="45" style="fill:black;">🙁</text></svg>') no-repeat;
+    background-size: contain;
 }
