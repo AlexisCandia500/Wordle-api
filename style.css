@@ -136,6 +136,11 @@ button:active {
     animation: confetti-fall 3s ease-out infinite; /* Animación de caída */
 }
 
+/* Animación para el título */
+.animacion-titulo {
+    animation: aparecer 3s ease-in-out;
+}
+
 @keyframes confetti-fall {
     0% {
         transform: translateY(-100vh) rotateZ(0deg);
