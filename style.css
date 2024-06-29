@@ -1,8 +1,11 @@
 body {
     font-family: Arial, sans-serif;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     height: 100vh;
-    background-color: #8B4513;
+    background-color: #8B4513; /* Fondo marrón */
     color: #fff;
     margin: 0;
 }
