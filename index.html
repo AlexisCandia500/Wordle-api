@@ -11,19 +11,21 @@
 <body>
     <div class="container">
         <header class="header">
-      <h1 class="animacion-titulo">WORDLE PPY</h1>
+            <h1 class="animacion-titulo">WORDLE PPY</h1>
         </header>
         <div class="game">
-            <span class="life"><i class="fa fa-heart icon red" aria-hidden="true"></i> Vidas: <span id="vida">6</span></span>
+            <div class="info-container">
+                <span class="life"><i class="fa fa-heart icon red" aria-hidden="true"></i> Vidas: <span id="vida">6</span></span>
+            </div>
             <input type="text" id="guess-input" maxlength="5">
             <span id="error"></span>
             <button id="guess-button">Intentar</button>
             <p id="guesses"></p>
             <div id="grid"></div>
         </div>
-</div>
-        <!-- Contenedor para el confeti -->
-        <div class="confetti-container"></div>
+    </div>
+    <!-- Contenedor para el confeti -->
+    <div class="confetti-container"></div>
     <script src="./script.js" defer></script>
 </body>
 </html>
