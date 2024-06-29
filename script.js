@@ -23,12 +23,12 @@ function init() {
         GRID.innerHTML = '';
         button.innerText = "Adivinar";
         button.removeEventListener('click', iniciarJuego);
-        button.addEventListener('click', validarInput);
+        button.addEventListener('click', manejarIntento);
         input.addEventListener('keyup', (event) => {
             ERROR.innerHTML = "";
             input.style.borderColor = '#ccc';
             if (event.key === 'Enter') {
-                validarInput();
+                manejarIntento();
             }
         });
 
@@ -44,20 +44,23 @@ function init() {
         input.focus();
     }
 
-    function validarInput() {
-        const intento = leerIntento().trim().toUpperCase();
-        const LETRAS = /^[a-zA-Z]+$/;
-        if (intento.length !== 5) {
-            ERROR.innerHTML = "*Ingrese exactamente 5 caracteres";
-            input.style.borderColor = 'red';
-        } else if (!LETRAS.test(intento)) {
-            ERROR.innerHTML = "*Solo se admite letras";
-            input.style.borderColor = 'red';
-        } else {
-            ERROR.innerHTML = "";
-            input.style.borderColor = '#ccc';
+    function manejarIntento() {
+        const intento = input.value.trim().toUpperCase();
+        if (validarEntrada(intento)) {
             intentar(intento);
         }
+    }
+
+    function validarEntrada(intento) {
+        const LETRAS = /^[a-zA-Z]+$/;
+        if (intento.length !== 5) {
+            mostrarError("*Ingrese exactamente 5 caracteres");
+            return false;
+        } else if (!LETRAS.test(intento)) {
+            mostrarError("*Solo se admite letras");
+            return false;
+        }
+        return true;
     }
 
     function intentar(intento) {
@@ -111,7 +114,7 @@ function init() {
         input.disabled = true;
         contenedorMensajes.innerHTML = mensaje;
         button.innerText = "Reiniciar";
-        button.removeEventListener('click', validarInput);
+        button.removeEventListener('click', manejarIntento);
         button.addEventListener("click", reiniciarJuego);
     }
 
@@ -120,8 +123,8 @@ function init() {
         obtenerPalabra();
     }
 
-    function leerIntento() {
-        let intento = input.value.trim();
-        return intento;
+    function mostrarError(mensaje) {
+        ERROR.innerHTML = mensaje;
+        input.style.borderColor = 'red';
     }
 }
