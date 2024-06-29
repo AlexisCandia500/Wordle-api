@@ -37,7 +37,7 @@ h3 {
 
 #guess-input {
     display: block;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 10px;
     font-size: 18px;
     width: 250px;
@@ -110,6 +110,13 @@ button:active {
 
 .input-area {
     margin: 30px;
+}
+
+.info-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 /* Estilos para el confeti */
